@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="template::head"></th:block>
+    <title>Все тесты</title>
+</head>
+<body>
+<div th:insert="template::header"></div>
+<div class="main-content">
+    <h6 th:if="${admin}"><a href="/tests/create">Создать новый тест</a></h6>
+    <h4>Список всех тестов:</h4>
+    <ul>
+        <th:block th:each="test : ${tests}">
+            <li><a th:href="@{'/tests/' + ${test.id}}" th:text="${test.title}"></a></li>
+        </th:block>
+    </ul>
+</div>
+</body>
+</html>

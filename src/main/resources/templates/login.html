@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="template::head"></th:block>
+    <title>Войти</title>
+</head>
+<body class="login-page">
+<br>
+<h5>Войдите в систему или зарегистрируйтесь</h5><br>
+<form action="/login" method="post">
+    <input placeholder="Логин" name="login" class="form-control" autofocus required><br>
+    <input type="password" placeholder="Пароль" name="password" class="form-control" required><br>
+    <div th:if="${error}" style="color:red">Неверный логин или пароль</div><br>
+    <input type="submit" value="Войти" class="btn btn-primary">
+</form>
+<br>
+<a href="/signup">Регистрация</a>
+</body>
+</html>

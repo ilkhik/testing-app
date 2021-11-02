@@ -1,0 +1,28 @@
+#header {
+    height: 3em;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+#header a {
+    background-color: #d0d0d0;
+    color: #808080;
+    top: 1em;
+    position: relative;
+    border-radius: 5px;
+}
+
+.main-content {
+    margin: 10px;
+}
+
+.login-page {
+    margin: auto;
+    width: 300px;
+    text-align: center;
+}
+
+.question {
+    border: 2px solid #77a;
+    padding: 10px;
+}

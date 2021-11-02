@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="template::head"></th:block>
+    <title>Все пользователи</title>
+</head>
+<body>
+<div th:insert="template::header"></div>
+<div class="main-content">
+    <h6>Чтобы изменить роль пользователя, нажмите на нее.</h6>
+    <table class="table">
+        <tr th:each="user : ${users}">
+            <td th:text="${user.login}"></td>
+            <td th:if="${user.id == currentUser.id}"><input type="submit" class="btn" disabled value="Администратор"></td>
+            <td th:unless="${user.id == currentUser.id}">
+                <form method="post" th:action="'/users/'+${user.id}+'/role'" th:switch="${user.role}">
+                    <span th:case="${T(ru.ilkhik.testtask.models.Role).USER}">
+                        <input type="hidden" name="admin" value="true">
+                        <input type="submit" class="btn" value="Пользователь">
+                    </span>
+                    <span th:case="${T(ru.ilkhik.testtask.models.Role).ADMIN}">
+                        <input type="hidden" name="admin" value="false">
+                        <input type="submit" class="btn btn-primary" value="Администратор">
+                    </span>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

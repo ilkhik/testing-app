@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="template::head"></th:block>
+    <title th:text="${takedTest.test.title}"></title>
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+<div th:insert="template::header"></div>
+<div class="main-content">
+<h1><div th:text="'Вы прошли тест &#34;'+${takedTest.test.title}+'&#34;. Набрано баллов: '+${takedTest.score}+' из '+${takedTest.test.maxScores}"></div></h1>
+<a href="/tests">Вернуться к списку тестов</a>
+</div>
+</body>
+</html>

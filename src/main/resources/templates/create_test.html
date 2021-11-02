@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="template::head"></th:block>
+    <title>Создать новый тест</title>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/create_test.js"></script>
+</head>
+<body>
+<div th:insert="template::header"></div>
+
+<div class="main-content">
+    <h1>Создание нового теста</h1>
+
+    <form id="test" action="/tests/create" method="post">
+        <input placeholder="Название теста" id="testTitle" required>
+
+        <ul>
+            <li class="question">
+                <input placeholder="Введите вопрос" class="questionText" required>
+                <select class="questionKind">
+                    <option value="SINGLE_CHOICE">Один вариант ответа</option>
+                    <option value="MULTIPLY_CHOICE">Несколько вариантов ответа</option>
+                </select>
+
+                <ol>
+                    <li class="answer">
+                        <input placeholder="Введите вариант ответа" class="answerText" required>
+                        <input type="checkbox" class="answerIsCorrect">
+                        <button type="button" class="removeAnswerButton">-</button>
+                    </li>
+                    <button type="button" class="addAnswerButton">+</button>
+                </ol>
+                <button type="button" class="removeQuestionButton">Удалить вопрос</button>
+            </li>
+            <button type="button" class="addQuestionButton">Добавить вопрос</button>
+        </ul>
+        <input type="submit" value="Создать новый тест">
+    </form>
+</div>
+</body>
+</html>

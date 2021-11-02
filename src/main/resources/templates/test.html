@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="template::head"></th:block>
+    <title th:text="${test.title}"></title>
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+<script>
+function serializeTestTaking(){
+    let data = {};
+    let questions = [];
+    
+    $(".question").each(function() {
+        let question = {};
+        question["number"] = $(this).attr("data-question-num");
+        question["answers"] = [];
+        $(this).find(".answer").each(function() {
+            if ($(this).is(':checked'))
+                question["answers"].push( parseInt($(this).attr("data-answer-num")) );
+        });
+        
+        
+        questions.push(question);
+    });
+    
+    data["questions"] = questions;
+    return data;
+}
+
+
+$(document).ready(function() {
+    $(document).on("submit", "#test", function(e) {
+        e.preventDefault();
+        
+        $.ajax({
+           type: "POST",
+           url: $(this).attr("action"),
+           contentType: "application/json; charset=utf-8",
+           data: JSON.stringify(serializeTestTaking()),
+           success: function(data){
+               window.location.replace("");
+           },
+           error: function(){
+               alert("Error!");
+               window.location.replace("");
+           }
+         });
+    });
+});
+
+</script>
+<div th:insert="template::header"></div>
+<div class="main-content">
+    <h1>Тест "<span th:text="${test.title}"></span>"</h1>
+    <form th:action="'/tests/'+${test.id}" method="post" id="test">
+        <ol>
+            <th:block th:each="question : ${test.questions}">
+                <li class="question" th:data-question-num="${question.number}">
+                    <div th:text="${question.text}">?????</div>
+                    <fieldset>
+                        <ol>
+                            <th:block th:each="answer : ${question.answers}">
+                                <li>
+                                    <span th:switch="${question.questionKind}">
+                                        <input th:case="${T(ru.ilkhik.testtask.models.QuestionKind).SINGLE_CHOICE}"
+                                               type="radio"
+                                               th:name="question+${question.number}" class="answer"
+                                               th:data-answer-num="${answer.number}">
+                                        <input th:case="${T(ru.ilkhik.testtask.models.QuestionKind).MULTIPLY_CHOICE}"
+                                               type="checkbox"
+                                               th:name="question+${question.number}" class="answer"
+                                               th:data-answer-num="${answer.number}">
+                                    </span>
+                                    <span th:text="${answer.text}">!!!!!!!!</span>
+                                </li>
+
+                            </th:block>
+                        </ol>
+                    </fieldset>
+                </li>
+                <br>
+            </th:block>
+        </ol>
+        <input type="submit" id="takeTestButton" class="btn btn-primary" value="Готово" style="margin-left:50%;">
+    </form>
+</div>
+</body>
+</html>

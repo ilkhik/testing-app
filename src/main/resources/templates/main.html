@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="template::head"></th:block>
+    <title th:text="${user.login}"></title>
+</head>
+<body>
+<div th:insert="template::header"></div>
+<div class="main-content">
+
+    <h1 th:text="'Профиль: '+${user.login}"></h1>
+
+    <h6 th:if="${user.role == T(ru.ilkhik.testtask.models.Role).ADMIN}">У Вас учетная запись администратора. <a
+            href="/users">Показать всех пользователей</a></h6>
+
+    <div th:if="${#lists.isEmpty(user.takedTests)}">
+        У Вас пока нет пройденных тестов
+    </div>
+
+    <div th:unless="${#lists.isEmpty(user.takedTests)}">
+        <div th:text="'Количество пройденных тестов: '+${user.testPassedNumber}"></div>
+        <div th:text="'Всего набрано баллов: '+${user.scoreSum}+' из '+${user.scoreMaxSum}"></div>
+        <br>
+        <h5>Вами пройденные тесты:</h5>
+        <table class="table">
+            <tr>
+                <td>Название</td>
+                <td>Набрано баллов</td>
+                <td>Максимальное количество баллов</td>
+            </tr>
+
+            <tr th:each="takedTest : ${user.takedTests}">
+                <td><a th:href="'/tests/'+${takedTest.test.id}" th:text="${takedTest.test.title}"></a></td>
+                <td th:text="${takedTest.score}"></td>
+                <td th:text="${takedTest.test.maxScores}"></td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+</body>
+</html>
