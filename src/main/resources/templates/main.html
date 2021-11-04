@@ -6,10 +6,12 @@
     <title th:text="${user.login}"></title>
 </head>
 <body>
-<div th:insert="template::header"></div>
+<div th:replace="template::header"></div>
 <div class="main-content">
 
     <h1 th:text="'Профиль: '+${user.login}"></h1>
+
+    <div th:text="'Дата регистрации: '+${signupDate}"></div>
 
     <h6 th:if="${user.role == T(ru.ilkhik.testtask.models.Role).ADMIN}">У Вас учетная запись администратора. <a
             href="/users">Показать всех пользователей</a></h6>

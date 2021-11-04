@@ -6,7 +6,7 @@
     <title>Все тесты</title>
 </head>
 <body>
-<div th:insert="template::header"></div>
+<div th:replace="template::header"></div>
 <div class="main-content">
     <h6 th:if="${admin}"><a href="/tests/create">Создать новый тест</a></h6>
     <h4>Список всех тестов:</h4>

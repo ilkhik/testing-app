@@ -1,19 +1,31 @@
 #header {
-    height: 3em;
+    height: 50px;
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: #dadadad4;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+#header li {
+    display: inline-block;
+    background-color: #bfbfbf;
+    top: 10px;
+    position: relative;
+    border-radius: 5px;
+    height: 30px;
 }
 
 #header a {
-    background-color: #d0d0d0;
-    color: #808080;
-    top: 1em;
-    position: relative;
-    border-radius: 5px;
+    text-decoration: none;
+    color: #222325;
 }
 
 .main-content {
-    margin: 10px;
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+    top: 50px;
 }
 
 .login-page {
@@ -23,6 +35,10 @@
 }
 
 .question {
-    border: 2px solid #77a;
     padding: 10px;
 }
+
+.questionKind {
+    max-width: 300px;
+}
+
