@@ -2,15 +2,15 @@ package ru.ilkhik.testtask.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Data
 @NoArgsConstructor
 @IdClass(AnswerId.class)
-public class Answer {
+public class Answer implements Serializable {
     @Id
     private Integer number;
 

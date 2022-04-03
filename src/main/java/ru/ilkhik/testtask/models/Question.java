@@ -3,12 +3,13 @@ package ru.ilkhik.testtask.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Data
 @IdClass(QuestionId.class)
-public class Question {
+public class Question implements Serializable {
     @Id
     private Integer number;
 

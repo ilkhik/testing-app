@@ -1,19 +1,16 @@
 package ru.ilkhik.testtask.models;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Data
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -3,13 +3,14 @@ package ru.ilkhik.testtask.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
-public class Test {
+public class Test implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -37,7 +38,7 @@ public class Test {
     }
 
     public Question getQuestionByNumber(int number) {
-        return getQuestions().get(number-1);
+        return getQuestions().get(number - 1);
     }
 
     public boolean checkQuestion(int questionNumber, Set<Integer> answers) {
