@@ -8,6 +8,7 @@ import ru.ilkhik.testtask.repositories.UsersRepository;
 import ru.ilkhik.testtask.transfer.UserDto;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -22,5 +23,9 @@ public class UserService {
         User user = usersRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         user.setRole(admin ? Role.ADMIN : Role.USER);
         usersRepository.save(user);
+    }
+
+    public Optional<User> getUserByLogin(String login) {
+        return usersRepository.findOneByLoginIgnoreCase(login);
     }
 }
