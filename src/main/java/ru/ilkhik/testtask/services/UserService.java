@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.ilkhik.testtask.models.Role;
 import ru.ilkhik.testtask.models.User;
 import ru.ilkhik.testtask.repositories.UsersRepository;
+import ru.ilkhik.testtask.services.exceptions.UserNotFoundException;
 import ru.ilkhik.testtask.transfer.UserDto;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class UserService {
     }
 
     public void changeRole(int id, boolean admin) {
-        User user = usersRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        User user = usersRepository.findById(id).orElseThrow(UserNotFoundException::new);
         user.setRole(admin ? Role.ADMIN : Role.USER);
         usersRepository.save(user);
     }

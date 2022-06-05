@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.ilkhik.testtask.forms.UserForm;
 import ru.ilkhik.testtask.services.SignUpService;
+import ru.ilkhik.testtask.services.exceptions.UserAlreadyExistsException;
 
 @Controller
 @RequestMapping("/signup")
@@ -19,7 +20,7 @@ public class SignUpController {
     public String signUp(UserForm userForm, Model model) {
         try {
             signUpService.signUp(userForm);
-        } catch (Throwable e) {
+        } catch (UserAlreadyExistsException e) {
             model.addAttribute("error", true);
             return "sign_up";
         }

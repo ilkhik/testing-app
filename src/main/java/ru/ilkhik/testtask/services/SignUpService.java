@@ -7,6 +7,7 @@ import ru.ilkhik.testtask.forms.UserForm;
 import ru.ilkhik.testtask.models.Role;
 import ru.ilkhik.testtask.models.User;
 import ru.ilkhik.testtask.repositories.UsersRepository;
+import ru.ilkhik.testtask.services.exceptions.UserAlreadyExistsException;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +19,7 @@ public class SignUpService {
     @Autowired
     private UsersRepository usersRepository;
 
-    public void signUp(UserForm userForm) {
+    public void signUp(UserForm userForm) throws UserAlreadyExistsException {
         String passwordHash = passwordEncoder.encode(userForm.getPassword());
         User user = new User();
         user.setLogin(userForm.getLogin());
@@ -29,6 +30,10 @@ public class SignUpService {
         user.setScoreSum(0);
         user.setScoreMaxSum(0);
 
-        usersRepository.save(user);
+        try {
+            usersRepository.save(user);
+        } catch (Throwable t) {
+            throw new UserAlreadyExistsException();
+        }
     }
 }

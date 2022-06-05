@@ -8,6 +8,7 @@ import ru.ilkhik.testtask.forms.TestTakeForm;
 import ru.ilkhik.testtask.repositories.TakedTestsRepository;
 import ru.ilkhik.testtask.repositories.TestsRepository;
 import ru.ilkhik.testtask.repositories.UsersRepository;
+import ru.ilkhik.testtask.services.exceptions.TestAlreadyExistsException;
 import ru.ilkhik.testtask.transfer.TestDto;
 
 import java.util.Collections;
@@ -30,7 +31,7 @@ public class TestService {
         return TestDto.from(testsRepository.findAll());
     }
 
-    public void createNewTest(Test test) {
+    public void createNewTest(Test test) throws TestAlreadyExistsException {
         List<Question> questions = test.getQuestions();
         int i = 1;
         for (Question question : questions) {
@@ -44,7 +45,11 @@ public class TestService {
             ++i;
         }
         test.computeMaxScores();
-        testsRepository.save(test);
+        try {
+            testsRepository.save(test);
+        } catch (Throwable t) {
+            throw new TestAlreadyExistsException();
+        }
     }
 
     public void takeTest(int testId, User user, TestTakeForm testTakeForm) {
@@ -79,7 +84,7 @@ public class TestService {
         return dto;
     }
 
-    public Optional<TakedTest> isTestTaked(User user, int testId) {
+    public Optional<TakedTest> getTakedTest(User user, int testId) {
         return takedTestsRepository.findByUserAndTest(user, testsRepository.findById(testId)
                     .orElseThrow(IllegalArgumentException::new));
     }
