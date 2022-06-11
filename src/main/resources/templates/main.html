@@ -13,6 +13,8 @@
 
     <div th:text="'Дата регистрации: '+${signupDate}"></div>
 
+    <a href="/settings">Настройки профиля</a>
+
     <h6 th:if="${user.role == T(ru.ilkhik.testtask.models.Role).ADMIN}">У Вас учетная запись администратора. <a
             href="/users">Показать всех пользователей</a></h6>
 

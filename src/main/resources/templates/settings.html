@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="template::head"></th:block>
+    <title>Настройки профиля</title>
+</head>
+<body>
+<div th:replace="template::header"></div>
+<div class="main-content">
+        <h5>Сменить пароль</h5>
+        <form action="/settings/password" method="post" style="max-width: 290px">
+            <label>Старый пароль</label>
+            <input name="oldPassword" type="password" class="form-control" required><br>
+            <label>Новый пароль</label>
+            <input name="newPassword" type="password" class="form-control" required><br>
+
+            <div th:if="${passwordIsWrong}" style="color: red">Неверный пароль</div>
+            <div th:if="${passwordChanged}" style="color: green">Пароль изменен</div>
+
+            <br>
+            <input type="submit" value="Сменить" class="btn btn-primary">
+
+        </form>
+</div>
+</body>
+</html>
